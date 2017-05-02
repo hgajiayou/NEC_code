@@ -1,7 +1,5 @@
 import random
 import torch
-import scipy.io as sio
-import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.neighbors import KDTree
 Num_action=5
@@ -39,7 +37,7 @@ class DND(object):
             # self.trees = [KDTree(self.keys[i]['key'], leaf_size=40) for i in range(self.num_action)]
             self.trees[action_index] = KDTree(self.keys[action_index]['key'], leaf_size=40)
             actchosen_count[action_index]+=1
-
+#calcurate weight wi, output Q-values of each action as in (1) in the article
     def cal_Qvalues(self,query_key,p):
         Q_values=np.zeros(self.num_action)
         for i in range(self.num_action):
@@ -51,6 +49,7 @@ class DND(object):
             Q_values[i]=float(weight*values)
         return torch.Tensor(Q_values)
 
+#test
 
 dnd=DND(mem_size=Mem_size,num_action=Num_action)
 bb=np.ones((1,5))
